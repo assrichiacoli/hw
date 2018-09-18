@@ -4,16 +4,14 @@ def unique(e):
         if i not in a:
             a.append(i)
             a.sort()
-        else:
-            print ('Here is your sortet list of distinct elements!')
-            return a
+    return a
 
             
             
 def transposeDict(d):
     a = d.keys()
     b = d.values()
-    new = dict(zip(a,b))   
+    new = dict(zip(b,a))   
    
     return new
     
@@ -31,7 +29,7 @@ def mex(e):
     while k in a:
         k+=1
     else:
-        print (k)
+        return (k)
         
         
 def frequencyDict(s):
