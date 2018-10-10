@@ -78,6 +78,4 @@ assert addBorder(['abc',
                               '|abc|',
                               '|def|',
                               '+---+']
-assert shorting(['word', 'localization', 'internationalization',
-'pneumonoultramicroscopicsilicovolcanoconiosis']) ==
-['word', 'l10n', 'i18n', 'p43s']
+assert shorting(['word', 'localization']) == ['word', 'l10n']
