@@ -7,7 +7,7 @@ def addBorder(a):
         return print('Can\'t add border to an empty list!')
     else:
         o = '-'
-        b = o * int(len(a[1]))
+        b = o * int(len(a[0]))
         border = ['+' + b + '+']
         for i in a:
             border.append('|' + i + '|')
