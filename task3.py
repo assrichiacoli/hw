@@ -9,7 +9,8 @@ def squares(a):
 
 
 def repeatntimes(elems, n):
-    yield list(elems) * n
+    for i in itertools.tee(elems, n):
+        yield from i
 
 
 def evens(x):
@@ -34,4 +35,4 @@ def changecase(s):
 
 def productif(elems, conds):
     return reduce(lambda x, y: x * y, map(lambda x: x[0] if x[1] is True else
-                                          1, zip(elems, conds)))
+                                          1, zip(elems, conds)), 1)
