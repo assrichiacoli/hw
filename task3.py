@@ -3,19 +3,13 @@ from functools import reduce
 from operator import mul
 
 
-def filter(predicate, elements):
-    for x in elements:
-        if predicate(x):
-            yield x
-
-
 def squares(a):
     for i in a:
         yield i ** 2
 
 
 def repeatntimes(elems, n):
-    yield elems * n
+    yield list(elems) * n
 
 
 def evens(x):
@@ -27,7 +21,7 @@ def evens(x):
 def digitsumdiv(p):
     for i in itertools.count(1):
         if sum(int(digit) for digit in str(i)) % p == 0:
-            yield sum(int(digit) for digit in str(i))
+            yield i
 
 
 def extractnumbers(s):
@@ -39,9 +33,5 @@ def changecase(s):
 
 
 def productif(elems, conds):
-    a = list(zip(elems, conds))
-    b = list(filter(lambda x: x[1] is True, a))
-    c = []
-    for i in b:
-        c.append(i[0])
-    return reduce(mul, c, 1)
+    return reduce(lambda x, y: x * y, map(lambda x: x[0] if x[1] is True else
+                                          1, zip(elems, conds)))
