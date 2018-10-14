@@ -16,8 +16,8 @@ def correctbracketsequences(n):
             yield str(prefix)
         else:
             for i in ['(', ')']:
-                if len(prefix + i) <= n * 2 and (prefix.count('(')
-                                                 - prefix.count(')')) >= 0:
+                if len(prefix + i) <= n * 2 and ((prefix + i).count('(') -
+                                                 (prefix + i).count(')')) >= 0:
                     yield from bracket(n, prefix + i)
     return list(bracket(n))
 
@@ -27,7 +27,9 @@ def combinationswithrepeats(n, k):
         if len(prefix) == k:
             yield tuple(prefix)
         else:
+            x = prefix[-1] if len(prefix) > 0 else 1
             for i in range(1, n + 1):
+                if i >= x:
                     yield from gen_comb(n, k, prefix + [i])
     return list(gen_comb(n, k))
 
