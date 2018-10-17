@@ -22,7 +22,7 @@ def recurrent(n):
 
 def digitsum(n):
     if n // 10 == 0:
-        return n  
+        return n
     return digitsum(n % 10) + digitsum(n//10)
 
 
@@ -53,7 +53,7 @@ def drawborders(n):
 
 
 def genbinarystrings(n):
-    def gen(n, prefix =''):
+    def gen(n, prefix=''):
         if len(prefix) == n:
             yield prefix
         else:
@@ -72,24 +72,57 @@ def istwopower(n):
     return istwopower(n / 2)
 
 
+def concatnumbers(a, b):
+    if b // 10 == 0:
+        return a * 10 + b
+    return concatnumbers(a, b // 10) * 10 + (b % 10)
+
+
 def abacaba(n):
     if n == 1:
         return [1]
     return abacaba(n-1) + [n] + abacaba(n-1)
-    
-    
+
+
 def parentheses(s):
     if len(s) <= 2:
-        return '(' + s + ')' 
-    return '(' + s[0] + parentheses(s[1:-1]) + s[-1] + ')'   
- 
+        return '(' + s + ')'
+    return '(' + s[0] + parentheses(s[1:-1]) + s[-1] + ')'
+
 
 def gcd(a, b):
     if a % b == 0:
         return b
     else:
         return gcd(b, a % b)
-        
+
+
+def mergesort(a):
+    if len(a) > 1:
+        mid = len(a) // 2
+        lefthalf = mergesort(a[:mid])
+        righthalf = mergesort(a[mid:])
+        i = j = k = 0
+        while i < len(lefthalf) and j < len(righthalf):
+            if lefthalf[i] < righthalf[j]:
+                a[k] = lefthalf[i]
+                i += 1
+            else:
+                a[k] = righthalf[j]
+                j += 1
+            k += 1
+
+        while i < len(lefthalf):
+            a[k] = lefthalf[i]
+            i += 1
+            k += 1
+
+        while j < len(righthalf):
+            a[k] = righthalf[j]
+            j += 1
+            k += 1
+    return a
+
 if __name__ == '__main__':
     assert factorial(0) == 1
     assert factorial(2) == 2
@@ -141,3 +174,11 @@ if __name__ == '__main__':
     assert gcd(4, 6) == 2
     assert gcd(18, 12) == 6
     assert gcd(283918822, 595730520) == 22
+    assert concatnumbers(1, 2) == 12
+    assert concatnumbers(55, 88) == 5588
+    assert concatnumbers(123, 789) == 123789
+    assert concatnumbers(1000, 2) == 10002
+    assert mergesort([]) == []
+    assert mergesort([100]) == [100]
+    assert mergesort([1, 3, 2]) == [1, 2, 3]
+    assert mergesort([1, 3, 5, 4, 2]) == [1, 2, 3, 4, 5]
