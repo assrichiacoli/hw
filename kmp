@@ -1,0 +1,35 @@
+import numpy as np
+import itertools
+import socket
+
+def digitsum(n):
+    if n // 10 == 0:
+        return n
+    return digitsum(n % 10) + digitsum(n // 10)
+
+
+def valuesunion(*dicts):   
+    a = dict(itertools.chain.from_iterable(dic.items() for dic in dicts))
+    return set(a.values())
+
+
+def popcount(n):
+    a = int(np.binary_repr(n), 10)
+    return digitsum(a)
+
+
+def powers(n, m):
+    a = list(range(1, n + 1))
+    print(a)
+    b = []
+    for i in a:
+        b.append((i ** i) % m)
+    return dict(zip(a, b))
+
+
+def isIPv4(s):
+    try:
+        socket.inet_aton(s)
+        return True
+    except socket.error:
+        return False
