@@ -1,5 +1,4 @@
 import numpy as np
-import itertools
 import socket
 
 def digitsum(n):
@@ -8,9 +7,12 @@ def digitsum(n):
     return digitsum(n % 10) + digitsum(n // 10)
 
 
-def valuesunion(*dicts):   
-    a = dict(itertools.chain.from_iterable(dic.items() for dic in dicts))
-    return set(a.values())
+def valuesunion(*dicts): 
+    a = set()
+    for dic in dicts:
+        for item in dic.values():
+            a.add(item)
+    return a
 
 
 def popcount(n):
