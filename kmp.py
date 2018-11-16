@@ -141,7 +141,7 @@ def brackets2(n, m):
         if straight == n*2 and square == m*2 and (strleft
                                                   - strright) == 0 and \
          (sqleft - sqright) == 0 and stack_check(prefix): #count object oh
-            yield str(prefix)
+            yield prefix
         else:
             for i in ['(', ')', '[', ']']:
                 if (prefix + i).count('(') + \
