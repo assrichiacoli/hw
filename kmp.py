@@ -153,7 +153,7 @@ def brackets2(n, m):
                          ((prefix + i).count('[') - \
                           (prefix + i).count(']')) >= 0:
                     yield from bracket(n, m, prefix + i)
-    return list(bracket(n, m))
+    return bracket(n, m)
 
 
 def stack_check(pref):
