@@ -1,20 +1,28 @@
 
-class QueueNode(object):
+class QueueNode:
+    """ Node: Class for single node of LinkedQueue """
+
     def __init__(self, elem, nextnode):
-        self.value = elem
-        self.next = nextnode
+        """ Initializes new node """
+        self.elem = elem
+        self.nextnode = nextnode
 
 
-class QueueIterator(object):
-    def __init__(self, node, count):
-        self.out = node
-        self.count = count
+class QueueIterator:
+    """ QueueIterator: Iterator for LinkedQueue """
+
+    def __init__(self, node, emptynode):
+        """ Initializes new Iterator """
+        self.node = node
+        self.emptynode = emptynode
 
     def __next__(self):
-        if self.count == 0:
+        """ Returns next element of queue: next(iter) """
+        if self.emptynode == 0:
             raise StopIteration
         else:
-            out = self.out.value
-            self.out = self.out.next
-            self.count -= 1
-            return out
+            nextnode = self.node.elem
+            self.node = self.node.nextnode
+            self.emptynode -= 1
+            return nextnode
+ 
