@@ -68,7 +68,7 @@ class LinkedQueue:
 
     def __iter__(self):
         """ Returns Iterator for queue: iter(queue) """
-        return QueueIterator(self.out, self.count)
+        return QueueIterator(self.front, self.len)
 
     def __len__(self):
         """ Returns size of queue: len(queue) """
