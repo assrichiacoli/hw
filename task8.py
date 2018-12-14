@@ -76,7 +76,7 @@ class LinkedQueue:
 
     def clear(self):
         """ Makes queue empty """
-        self.enter = None
-        self.out = None
+        self.rear = None
+        self.front = None
         self.len = 0
  
