@@ -32,35 +32,36 @@ class LinkedQueue:
 
     def __init__(self):
         """ Initializes new queue """
-        self.enter = None
-        self.out = None
-        self.count = 0
+        self.rear = None
+        self.front = None
+        self.len = 0
 
     def push(self, elem):
         """ Pushes 'elem' to queue """
-        if self.count:
+        if self.len:
             new_node = QueueNode(elem, None)
-            self.enter.next = new_node
-            self.enter = new_node
-            self.count += 1
+            self.rear.next = new_node
+            self.rear = new_node
+            self.len += 1
         else:
-            self.enter = QueueNode(elem, None)
-            self.out = self.enter
-            self.count = 1
+            self.rear = QueueNode(elem, None)
+            self.front = self.rear
+            self.len = 1
+    
     def pop(self):
         """ Removes front of queue and returns it """
-        out = self.out.value
-        self.out = self.out.next
-        self.count -= 1
+        out = self.front.value
+        self.front = self.front.next
+        self.len -= 1
         return out
 
     def front(self):
         """ Returns front of queue """
-        return self.out.value
+        return self.front.value
 
     def empty(self):
         """ Checks whether queue is empty """
-        if self.count == 0:
+        if self.len == 0:
             return True
         else:
             return False
@@ -71,11 +72,11 @@ class LinkedQueue:
 
     def __len__(self):
         """ Returns size of queue: len(queue) """
-        return self.count
+        return self.len
 
     def clear(self):
         """ Makes queue empty """
         self.enter = None
         self.out = None
-        self.count = 0
+        self.len = 0
  
