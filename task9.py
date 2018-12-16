@@ -37,14 +37,6 @@ class FSItem(object):
         self.path = os.path.split(self.path)[0] + '/' + newname
         print("Renamed successfully!")
 
-    def create(self, newpath, directory = None):
-        ''' Creates new item in OS
-                raise FileSystemError if item with such path already exists '''
-        if self.isdirectory() and directory != None:
-            os.mkdir(os.path.join(self.path,newpath))
-        if self.isdirectory() and directory == None:
-            open(os.path.join(self.path,newpath), 'a').close()
-
     def getname(self):
         ''' Returns name of current item '''
         return os.path.split(self.path)[1]
@@ -67,6 +59,12 @@ class File(FSItem):
                 raise FileSystemError if there exists directory with the same path '''
         super().__init__(path)
         self.isdir(self.path)
+
+    def create(self):
+        ''' Creates new item in OS
+                raise FileSystemError if item with such path already exists '''
+        self.exist(self.path)
+        open(self.path).close()
 
     def __len__(self):
         ''' Returns size of file in bytes
@@ -94,6 +92,12 @@ class Directory(FSItem):
                 raise FileSystemError if there exists file with the same path '''
         super().__init__(path)
         self.isfil(self.path)
+
+    def create(self):
+        ''' Creates new item in OS
+                raise FileSystemError if item with such path already exists '''
+        self.exist(self.path)
+        os.mkdir(self.path)
 
     def items(self):
         ''' Yields FSItem instances of items inside of current directory
@@ -133,4 +137,5 @@ class Directory(FSItem):
     def getsubdirectory(self, name):
         ''' Returns Directory instance with subdirectory of current directory with name "name"
                 raise FileSystemError if item "name" already exists and item "name" is not directory '''
+        self.exist(os.path.join(self.path,name))
         return Directory(os.path.join(self.path,name))
