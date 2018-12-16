@@ -36,7 +36,7 @@ class FSItem(object):
         os.rename(self.path, newname)
         self.path = os.path.join(os.path.split(self.path)[0], newname)
         print("Renamed successfully!")
-    
+
     def create(self):
         pass
 
@@ -51,7 +51,6 @@ class FSItem(object):
     def isdirectory(self):
         ''' Returns True if current item exists and current item is directory, False otherwise '''
         return os.path.isdir(self.path)
-
 
 
 class File(FSItem):
@@ -108,7 +107,7 @@ class Directory(FSItem):
         self.existnt(self.path)
         return self.files()
         return self.subdirectories()
-                
+
     def files(self):
         ''' Yields File instances of files inside of current directory
                 raise FileSystemError if current directory does not exists '''
