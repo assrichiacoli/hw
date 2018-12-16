@@ -112,17 +112,19 @@ class Directory(FSItem):
         ''' Yields File instances of files inside of current directory
                 raise FileSystemError if current directory does not exists '''
         self.existnt(self.path)
-        for root, directories, files in os.walk(self.path):
-            for x in files:
-                yield Files(x)
+        for x in os.listdir(self.path):
+            new = os.path.join(self.path, x)
+            if os.path.isfile(new):
+                print(new)
 
     def subdirectories(self):
         ''' Yields Directory instances of directories inside of current directory
                 raise FileSystemError if current directory does not exists '''
         self.existnt(self.path)
-        for root, directories, files in os.walk(self.path):
-            for x in directories:
-                yield Directory(x)
+        for x in os.listdir(self.path):
+            new = os.path.join(self.path, x)
+            if os.path.isdir(new):
+                print(new)
 
     def filesrecursive(self):
         ''' Yields File instances of files inside of this directory,
