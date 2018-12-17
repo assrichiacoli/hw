@@ -115,7 +115,7 @@ class Directory(FSItem):
         for x in os.listdir(self.path):
             new = os.path.join(self.path, x)
             if os.path.isfile(new):
-                print(new)
+                yield new
 
     def subdirectories(self):
         ''' Yields Directory instances of directories inside of current directory
@@ -124,19 +124,16 @@ class Directory(FSItem):
         for x in os.listdir(self.path):
             new = os.path.join(self.path, x)
             if os.path.isdir(new):
-                print(new)
+                yield new
 
     def filesrecursive(self):
         ''' Yields File instances of files inside of this directory,
                 inside of subdirectories of this directory and so on...
                 raise FileSystemError if directory does not exist '''
         self.existnt(self.path)
-        for file in self.files():
-            yield File(file)
-        for directory in self.subdirectories():
-            self.path = os.path.join(self.path,directory)
-            for file in self.files():
-                yield File(file)
+        for root, directories, file in os.walk(self.path):
+            for x in file:
+                yield x
 
     def getsubdirectory(self, name):
         ''' Returns Directory instance with subdirectory of current directory with name "name"
