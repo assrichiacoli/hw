@@ -11,20 +11,20 @@ class QueueNode:
 class QueueIterator:
     """ QueueIterator: Iterator for LinkedQueue """
 
-    def __init__(self, node, emptynode):
+    def __init__(self, node, lengthgth):
         """ Initializes new Iterator """
         self.node = node
-        self.emptynode = emptynode
+        self.length = lengthgth
 
     def __next__(self):
         """ Returns next element of queue: next(iter) """
-        if self.emptynode == 0:
+        if self.length == 0:
             raise StopIteration
         else:
-            nextnode = self.node.elem
-            self.node = self.node.nextnode
-            self.emptynode -= 1
-            return nextnode
+            out = self.node.elem
+            self.node = self.node.next
+            self.length -= 1
+            return out
 
 
 class LinkedQueue:
@@ -33,50 +33,50 @@ class LinkedQueue:
     def __init__(self):
         """ Initializes new queue """
         self.rear = None
-        self.front = None
-        self.len = 0
+        self.frontelem = None
+        self.length = 0
 
     def push(self, elem):
         """ Pushes 'elem' to queue """
-        if self.len:
+        if not self.length:
+            self.rear = QueueNode(elem, None)
+            self.frontelem = self.rear
+            self.length = 1
+        else:
             new_node = QueueNode(elem, None)
             self.rear.next = new_node
             self.rear = new_node
-            self.len += 1
-        else:
-            self.rear = QueueNode(elem, None)
-            self.front = self.rear
-            self.len = 1
+            self.length += 1
     
     def pop(self):
         """ Removes front of queue and returns it """
-        out = self.front.elem
-        self.front = self.front.next
-        self.len -= 1
+        out = self.frontelem.elem
+        self.frontelem = self.frontelem.next
+        self.length -= 1
         return out
 
     def front(self):
         """ Returns front of queue """
-        return self.front.value
+        return self.frontelem.elem
 
     def empty(self):
         """ Checks whether queue is empty """
-        if self.len == 0:
+        if self.length == 0:
             return True
         else:
             return False
 
     def __iter__(self):
         """ Returns Iterator for queue: iter(queue) """
-        return QueueIterator(self.front, self.len)
+        return QueueIterator(self.frontelem, self.length)
 
     def __len__(self):
-        """ Returns size of queue: len(queue) """
-        return self.len
+        """ Returns size of queue: length(queue) """
+        return self.length
 
     def clear(self):
         """ Makes queue empty """
         self.rear = None
-        self.front = None
-        self.len = 0
+        self.frontelem = None
+        self.length = 0
  
