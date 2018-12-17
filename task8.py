@@ -5,7 +5,7 @@ class QueueNode:
     def __init__(self, elem, nextnode):
         """ Initializes new node """
         self.elem = elem
-        self.nextnode = nextnode
+        self.next = nextnode
 
 
 class QueueIterator:
@@ -50,7 +50,7 @@ class LinkedQueue:
     
     def pop(self):
         """ Removes front of queue and returns it """
-        out = self.front.value
+        out = self.front.elem
         self.front = self.front.next
         self.len -= 1
         return out
