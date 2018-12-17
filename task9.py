@@ -115,7 +115,7 @@ class Directory(FSItem):
         for x in os.listdir(self.path):
             new = os.path.join(self.path, x)
             if os.path.isfile(new):
-                yield new
+                yield File(new)
 
     def subdirectories(self):
         ''' Yields Directory instances of directories inside of current directory
@@ -124,7 +124,7 @@ class Directory(FSItem):
         for x in os.listdir(self.path):
             new = os.path.join(self.path, x)
             if os.path.isdir(new):
-                yield new
+                yield Directory(new)
 
     def filesrecursive(self):
         ''' Yields File instances of files inside of this directory,
