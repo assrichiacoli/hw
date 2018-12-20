@@ -133,7 +133,7 @@ class Directory(FSItem):
         self.existnt(self.path)
         for root, directories, file in os.walk(self.path):
             for x in file:
-                yield x
+                yield File(x)
 
     def getsubdirectory(self, name):
         ''' Returns Directory instance with subdirectory of current directory with name "name"
