@@ -138,5 +138,4 @@ class Directory(FSItem):
     def getsubdirectory(self, name):
         ''' Returns Directory instance with subdirectory of current directory with name "name"
                 raise FileSystemError if item "name" already exists and item "name" is not directory '''
-        self.exist(os.path.join(self.path,name))
         return Directory(os.path.join(self.path,name))
