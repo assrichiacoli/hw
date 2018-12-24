@@ -4,6 +4,8 @@ import sys
 
 sys.path.append(os.path.join(sys.path[0], '../../task9'))
 
+from task9 import *
+
 def main(args):
     cwd = Directory(os.getcwd())
     while True:
@@ -20,43 +22,95 @@ def main(args):
             for item in directory.items():
                 if item.isfile():
                     print('{name}\tFILE\t{size}'.format(name=item.getname(), size=len(item)))
-                else:
+                elif item.isdirectory():
                     print('{name}\tDIR'.format(name=item.getname()))
             print()
         elif cmd == 'cd':
-            if cmdargs[0] == None:
-                os.getenv("HOME")
+            print()
+            if cmdargs[0] == '.':
+                cwd = Directory(os.environ['HOME'])
+            elif cmdargs[0] in os.listdir(cwd.path):
+                cwd = Directory(os.path.join(cwd.path,cmdargs[0]))
             elif cmdargs[0] == '..':
-                os.chdir(os.path.split(cwd)[0])
-            else:    
-                os.chdir(cmdargs[0])
+                cwd = Directory(os.path.split(cwd.path)[0])
+            else:
+                if os.path.exists(cmdargs[0]):
+                    cwd = Directory(cmdargs[0])
+                else:
+                    print('(_!_)')
+            print()
         elif cmd == 'cat':
-            print(File.getcontent(cmdargs))
-            
+            print()
+            for line in File(cmdargs[0]).getcontent():
+                print(line)
+            print()
         elif cmd == 'head':
-            if cmdargs[0] == '-n':
-                print(File.getcontent(cmdargs[2])[:int(cmdargs[1])]) 
+            print()
+            a = cmdargs
+            if a[0] == '-n':
+                for line in File(a[2]).getcontent()[:int(a[1])]:
+                    print(line) 
             else:
-                print(File.getcontent(cmdargs[1])[:10]) 
-                
+                for line in File(a[0]).getcontent()[:10]:
+                    print(line) 
+            print()    
         elif cmd == 'tail':
-            if cmdargs[0] == '-n':
-                print(File.getcontent(cmdargs[2])[-(int(cmdargs[1])):]) 
+            print()
+            a = cmdargs
+            if a[0] == '-n':
+                for line in File(a[2]).getcontent()[-int(a[1]):]:
+                    print(line) 
             else:
-                print(File.getcontent(cmdargs[2])[-10:])
-                
+                for line in File(a[0]).getcontent()[-10:]:
+                    print(line) 
+            print()  
         elif cmd == 'pwd':
-            print(os.getcwd())
-            
+            print()
+            print(cwd.path)
+            print()
         elif cmd == 'touch':
+            print()
             file = cmdargs[0]
-            open(file,'w+').close
-            
+            if os.path.exists(file):
+                print('"'"{0}"'" already exists'.format(file))
+            else:
+                open(file,'w+').close
+                print('"'"{0}"'" file is created!'.format(file))
+            print()
         elif cmd == 'find':
-            for file in cwd.filesrecursive:
-                if file == cmdargs[0]:
-                    print(file.path)
-        
+            print()
+            for root, directories, files in os.walk(cwd.path):
+                if str(cmdargs[0]) in str(root):
+                    print(root)
+            for x in cwd.filesrecursive():
+                if str(cmdargs[0]) in str(x.path):
+                    print(x.path)
+            print()
+        elif cmd == 'grep':
+            print()
+            for line in File(cmdargs[1]).getcontent():
+                if str(cmdargs[0]) in str(line):
+                    print(line)
+            print()
+        elif cmd == 'cp':
+            print()
+            f = open(cmdargs[1], 'w+')
+            for line in File(cmdargs[0]).getcontent():
+                print(line, file = f)
+            f.close()
+            print()
+        elif cmd == 'mv':
+            print()
+            f = open(cmdargs[1], 'w+')
+            for line in File(cmdargs[0]).getcontent():
+                print(line, file = f)
+            f.close()
+            os.remove(cmdargs[0])
+            print()
+        elif cmd == 'rm':
+            print()
+            os.remove(cmdargs[0])
+            print()
         elif cmd == 'exit':
             print("Bye bye!")
             break
