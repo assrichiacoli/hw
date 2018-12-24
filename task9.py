@@ -131,9 +131,9 @@ class Directory(FSItem):
                 inside of subdirectories of this directory and so on...
                 raise FileSystemError if directory does not exist '''
         self.existnt(self.path)
-        for root, directories, file in os.walk(self.path):
-            for x in file:
-                yield File(x)
+        yield from self.files()
+        for x in self.subdirectories():
+            yield from x.filesrecursive()
 
     def getsubdirectory(self, name):
         ''' Returns Directory instance with subdirectory of current directory with name "name"
