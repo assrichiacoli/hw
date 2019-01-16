@@ -1,0 +1,42 @@
+
+From: Moscow-DME
+To: Saint-Petersburg-LED
+Departure: 10:00
+Arrival: 11:20
+Cost: $65
+Airlines: Aeroflot
+
+From: Saint-Petersburg-LED
+To: Moscow-SVO
+Departure: 12:30
+Arrival: 13:40
+Cost: $55
+Airlines: Aeroflot
+
+From: Moscow-SVO
+To: Frankfurt-FRA
+Departure: 15:00
+Arrival: 18:30
+Cost: $160
+Airlines: Aeroflot
+
+From: Moscow-SVO
+To: Moscow-DME
+Departure: 23:00
+Arrival: 23:30
+Cost: $20
+Airlines: Aeroflot
+
+From: Frankfurt-FRA
+To: New-York-JFK
+Departure: 21:00
+Arrival: 06:20
+Cost: $390
+Airlines: Air-France
+
+From: Saint-Petersburg-LED
+To: New-York-JFK
+Departure: 11:00
+Arrival: 22:30
+Cost: $15000
+Airlines: Private-jet
